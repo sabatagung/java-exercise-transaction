@@ -1,0 +1,92 @@
+<?page title="Transaction List" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Transaction List" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('com.sdd.bootcamp01.TrxListVm')" 
+		validationMessages="@id('vmsg')">
+		
+		<groupbox mold="3d" title="Form Entry" 
+			form="@id('e') @load(vm.obj) @save(vm.obj, before='doSubmit') 
+			@validator(vm.formValidator)">
+			<grid>
+				<columns>
+					<column />
+					<column />
+				</columns>
+				<rows>
+					<row>
+						<label value="Transaction ID" />
+						<vlayout>
+							<label value="@load(vmsg['trxid'])" style="color: red" />
+							<textbox value="@bind(e.trxid)" />
+						</vlayout>
+					</row>
+					<row>
+						<label value="Transaction Date" />
+						<vlayout>
+							<label value="@load(vmsg['trxdate'])" style="color: red" />
+							<datebox value="@bind(e.trxdate)" />
+						</vlayout>						
+					</row>
+					<row>
+						<label value="Product" />
+						<combobox id="cbProduct" selectedItem="@bind(vm.product)"
+							model="@load(vm.productModel)">
+							<template name="model" var="product">
+								<comboitem label="@load(product.productname)" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Product Price" />
+						<decimalbox value="@bind(vm.product.price)"  readonly="true"
+							format="###,##0" style="text-align: right" />
+					</row>
+					<row>
+						<label value="Quantity" />
+						<intbox value="@bind(e.trxqty)" style="text-align: right" />
+					</row>
+					<!-- <row>
+						<label value="Transaction Amount" />
+						<decimalbox value="@bind(vm.obj.trxamount)" 
+							format="###,##0" style="text-align: right" />
+					</row> -->
+				</rows>
+				<foot>
+					<footer>
+						<label />
+						<hlayout>
+							<button id="btSave" label="Submit" onClick="@command('doSubmit')" />						
+							<button label="Reset Data List" onClick="@command('doClear')" />
+						</hlayout>						
+					</footer>
+				</foot>
+			</grid>
+		</groupbox>
+		
+		<separator />
+		<grid id="grid">
+			<columns>
+				<column label="No" align="center" />
+				<column align="center" />
+				<column label="Transaction ID" align="center" />
+				<column label="Date" align="center" />
+				<column label="Product" />
+				<column label="Quantity" />
+				<column label="Product Price" />				
+				<column label="Amount" align="right" />
+				<column label="Action" align="center" />
+			</columns>
+			<rows>
+							
+			</rows>
+			<foot>
+				<footer span="6" align="left">
+					<button label="Display Data Selected" 
+					onClick="@command('doDisplay')" />
+				</footer>
+			</foot>
+		</grid>
+
+	</window>
+</zk>

@@ -1,0 +1,31 @@
+<zk>
+	<window title="@load(vm.title)" border="normal" width="90%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('com.sdd.bootcamp01.TrxDetailVm')">		
+
+		<grid>
+			<columns>
+				<column />
+				<column />
+			</columns>
+			<rows>
+				<row>
+					<label value="Transaction ID" />
+					<label value="@load(vm.obj.trxid)" />
+				</row>
+				<row>
+					<label value="Transaction Date" />
+					<label value="@load(vm.obj.trxdate) 
+					@converter('formatedDate', format='dd MMM yyyy')" />
+				</row>
+				<row>
+					<label value="Transaction Amount" />
+					<label value="@load(vm.obj.trxamount) 
+					@converter('formatedNumber', format='###,##0.00')" />
+				</row>
+			</rows>
+		</grid>
+
+	</window>
+
+</zk>
