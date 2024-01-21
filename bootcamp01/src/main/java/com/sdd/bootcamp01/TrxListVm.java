@@ -92,7 +92,7 @@ public class TrxListVm {
 				// colum product
 				row.appendChild(new Label(data.getProduct().getProductname()));
 				// column trx quantity
-				row.appendChild(new Label(String.valueOf(data.getTrxid())));
+				row.appendChild(new Label(String.valueOf(data.getTrxqty())));
 				// column trx product price
 				row.appendChild(new Label(data.getProduct() != null ? NumberFormat.getInstance().format(data.getProduct().getPrice()): ""));
 				// column trx amount
@@ -109,16 +109,19 @@ public class TrxListVm {
 
 						obj = data;
 						objTemp = data;
-						if (product != null) {
-							product = (Product) obj.getProduct();
-							cbProduct.setValue(product.getProductname());
-						}
+						
+//						if (product != null) {
+//							product = (Product) obj.getProduct();
+//							cbProduct.setValue(product.getProductname());
+//						}
+						cbProduct.setValue(obj.getProduct().getProductname());
 						BindUtils.postNotifyChange(TrxListVm.this, "*");
 
 						btSave.setLabel("Update");
 						isUpdate = true;
 					}
 				});
+				btEdit.setStyle("background-color: orange; color: white;");
 
 				// button detail
 				Button btDetail = new Button("Detail");
@@ -136,8 +139,8 @@ public class TrxListVm {
 						win.doModal();
 					}
 				});
-
-//				row.appendChild(btDetail);
+				btDetail.setStyle("background-color: green; color: white;");
+//				row.appendChild(btDelete);
 
 				Button btDelete = new Button("Delete");
 				btDelete.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
@@ -149,6 +152,7 @@ public class TrxListVm {
 					}
 				});
 
+				btDelete.setStyle("background-color: red; color: white;");
 				Hlayout hlayout = new Hlayout();
 				hlayout.appendChild(btEdit);
 				hlayout.appendChild(btDetail);
@@ -237,6 +241,11 @@ public class TrxListVm {
 	public void doClear() {
 		grid.getRows().getChildren().clear();
 		objList = new ArrayList<>();
+		obj = new Transaction();
+		btSave.setLabel("Submit");
+		isUpdate = false;
+		product = new Product();
+		cbProduct.setValue(null);
 	}
 
 	@Command
