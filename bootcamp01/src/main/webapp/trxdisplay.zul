@@ -1,0 +1,16 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Transaction Detail" border="normal"
+		apply="org.zkoss.bind.BindComposer "
+		viewModel="@id('vm')@init('com.sdd.bootcamp01.TrxDisplayVm')">
+		<grid id="grid">
+			<columns>
+				<column label="No" align="right" />
+				<column label="Transaction ID" align="center" />
+				<column label="Date" align="center" />
+				<column label="Amount" align="right" />
+			</columns>
+			<rows></rows>
+		</grid>
+	</window>
+</zk>
